@@ -1,3 +1,4 @@
+import turtle
 from turtle import *
 
 # * SCREEN SIZE
@@ -24,6 +25,16 @@ textbox.stamp()
 textbox.color('white')
 textbox.goto(0, 0 - FONT_SIZE/2 - 10)  # center vertically based on font size
 textbox.write("START", align='center', font=FONT)
+
+# * Start button click
+
+
+def onClick(clickedX, clickedY):
+    if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
+        print("YYYYY", clickedY)
+
+
+onscreenclick(onClick)
 
 
 # * GAME MAIN FUNCTION
