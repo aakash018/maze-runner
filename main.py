@@ -1,12 +1,18 @@
 import turtle
 from turtle import *
 
+# * STYLE VARIABLES
+BGCOLOR = "#0E0F1E"
+BUTTONBG = "#1F3049"
+
+
 # * SCREEN SIZE
 WIDTH = 900
 HEIGHT = 600
 
 # * SCREN INIT
 screen = Screen()
+screen.bgpic("./assets/images/bg.png")
 
 
 # * WELCOME SCREEN START BUTTON
@@ -16,7 +22,7 @@ FONT = ('Courier', FONT_SIZE, 'bold')
 start_button = Turtle()
 start_button.hideturtle()
 start_button.pencolor("white")
-start_button.color('#1F3049')
+start_button.color(BUTTONBG)
 start_button.shape('square')
 start_button.shapesize(stretch_wid=5, stretch_len=20)
 start_button.penup()
@@ -32,7 +38,8 @@ start_button.write("START", align='center', font=FONT)
 
 def onClick(clickedX, clickedY):
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
-        print("button is being clicked")
+        screen.clear()
+        screen.bgcolor(BGCOLOR)
 
 
 onscreenclick(onClick)
@@ -41,7 +48,6 @@ onscreenclick(onClick)
 # * GAME MAIN FUNCTION
 def main():
     screen.setup(WIDTH, HEIGHT)
-    screen.bgpic("./assets/images/bg.png")
 
 
 while True:
