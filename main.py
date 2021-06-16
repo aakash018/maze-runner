@@ -1,7 +1,6 @@
-import turtle
 from turtle import *
 
-from character import Character
+import maze.main as mazeMaker
 
 # * STYLE VARIABLES
 BGCOLOR = "#0E0F1E"
@@ -36,27 +35,22 @@ start_button.color('white')
 start_button.goto(0, 0 - FONT_SIZE/2 - 10)
 start_button.write("START", align='center', font=FONT)
 
-# * Start button click
-
-
-def test():
-    print("sdadadadad")
+# * Start button clic
 
 
 def onClick(clickedX, clickedY):
-    character = Character()
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
         screen.clear()
         screen.bgcolor(BGCOLOR)
         character = Turtle()
         character.shape("square")
-        character.color("white")
-
-    screen.listen()
-    screen.onkeypress(lambda: character.sety(character.ycor() + 10), "w")
-    screen.onkeypress(lambda: character.sety(character.ycor() - 10), "s")
-    screen.onkeypress(lambda: character.setx(character.xcor() - 10), "a")
-    screen.onkeypress(lambda: character.setx(character.xcor() + 10), "d")
+        character.color("green")
+        screen.listen()
+        screen.onkeypress(lambda: character.sety(character.ycor() + 10), "w")
+        screen.onkeypress(lambda: character.sety(character.ycor() - 10), "s")
+        screen.onkeypress(lambda: character.setx(character.xcor() - 10), "a")
+        screen.onkeypress(lambda: character.setx(character.xcor() + 10), "d")
+        mazeMaker.drawMaze()
 
 
 onscreenclick(onClick)

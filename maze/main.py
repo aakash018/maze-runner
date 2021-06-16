@@ -1,8 +1,8 @@
-from random import shuffle, randrange
 import turtle
+from random import randrange, shuffle
 
-from MazeRunner.GameObject import GameObject
-from MazeRunner.MazeGenerator import MazeGenerator
+from .MazeRunner.GameObject import GameObject
+from .MazeRunner.MazeGenerator import MazeGenerator
 
 # Grid generator
 generator = MazeGenerator()
@@ -19,12 +19,12 @@ GRIDHEIGHT = 25
 GRIDXORIG = -302.5
 GRIDYORIG = 302.5
 
-SCALE = 25
+SCALE = 20
 
 # Screen stufss
-screen = turtle.Screen()
-screen.title(TITLE)
-screen.setup(WINWIDTH, WINHEIGHT)
+# screen = turtle.Screen()
+# screen.title(TITLE)
+# screen.setup(WINWIDTH, WINHEIGHT)
 
 # Game Objects
 wall = GameObject("square", "black", 1)
@@ -34,13 +34,18 @@ space = GameObject("square", "white", 1)
 f = open('Block.txt', 'r')
 grid = f.readlines()
 
-for i in range(GRIDHEIGHT):
-    for j in range(GRIDWIDTH):
-        wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
-        space.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
-        if(grid[i][j] == "X"):
-            wall.stamp()
-        if(grid[i][j] == " "):
-            space.stamp()
 
-turtle.done()
+def drawMaze():
+    for i in range(GRIDHEIGHT):
+        for j in range(GRIDWIDTH):
+            wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            space.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            if(grid[i][j] == "X"):
+                wall.stamp()
+            if(grid[i][j] == " "):
+                space.stamp()
+    # turtle.done()
+
+
+if __name__ == '__main__':
+    drawMaze()
