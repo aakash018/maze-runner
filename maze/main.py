@@ -1,7 +1,7 @@
 from random import randrange, shuffle
 
-from MazeRunner.GameObject import GameObject
-from MazeRunner.MazeGenerator import MazeGenerator
+from .MazeRunner.GameObject import GameObject
+from .MazeRunner.MazeGenerator import MazeGenerator
 
 # Grid generator
 generator = MazeGenerator()
