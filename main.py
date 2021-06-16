@@ -44,7 +44,7 @@ def moveUp(character):
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
-    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+    if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
     else:
@@ -57,7 +57,7 @@ def moveDown(character):
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
-    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+    if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
     else:
@@ -70,7 +70,7 @@ def moveLeft(character):
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
-    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+    if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
     else:
@@ -83,7 +83,7 @@ def moveRight(character):
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
-    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+    if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
     else:
@@ -104,11 +104,11 @@ def onClick(clickedX, clickedY):
         character.penup()
         character.goto(-277.5, 302.5 - 25)
         character.pendown()
-        screen.listen()
         screen.onkeypress(lambda: moveUp(character), "w")
         screen.onkeypress(lambda: moveDown(character), "s")
         screen.onkeypress(lambda: moveLeft(character), "a")
         screen.onkeypress(lambda: moveRight(character), "d")
+        screen.listen()
 
 
 onscreenclick(onClick)

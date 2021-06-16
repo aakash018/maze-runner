@@ -1,7 +1,7 @@
 from random import randrange, shuffle
 
-from .MazeRunner.GameObject import GameObject
-from .MazeRunner.MazeGenerator import MazeGenerator
+from MazeRunner.GameObject import GameObject
+from MazeRunner.MazeGenerator import MazeGenerator
 
 # Grid generator
 generator = MazeGenerator()
@@ -24,6 +24,7 @@ SCALE = 25
 
 # * Wall Cordinate
 wallsCordsInScreen = []
+spacesCordsInScreen = []
 
 # Screen stufss
 # screen = turtle.Screen()
@@ -49,12 +50,15 @@ def drawMaze():
                 wallsCordsInScreen.append((wall.xcor(), wall.ycor()))
             if(grid[i][j] == " "):
                 space.stamp()
+                spacesCordsInScreen.append((space.xcor(), space.ycor()))
     # turtle.done()
 
 
 def getWallsCords():
     return wallsCordsInScreen
 
+def getSpacesCords():
+    return spacesCordsInScreen
 
 if __name__ == '__main__':
     drawMaze()
