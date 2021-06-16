@@ -54,7 +54,14 @@ class MazeGenerator:
         s = ""
         for (a, b) in zip(row, col):
             s += ''.join(a + ['\n'] + b + ['\n'])
-        return s
+
+        l = list(s)
+        l[(self.column*2)+2] = "S"
+        l[(((self.column*2+1) * (self.column*2+1)) - 4)+(self.column*2+2)] = "P"
+        print(len(l))
+        fin = ""
+        fin += ''.join(l)
+        return fin
 
 
 MazeGenerator()

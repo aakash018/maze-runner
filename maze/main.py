@@ -31,27 +31,39 @@ spacesCordsInScreen = []
 # screen.title(TITLE)
 # screen.setup(WINWIDTH, WINHEIGHT)
 
-# Game Objects
-
 # Read generated grid from MazeGenerator
 f = open('Block.txt', 'r')
 grid = f.readlines()
 
 
 def drawMaze():
+    # Game Objects
     wall = GameObject("square", BUTTONBG, 1)
     space = GameObject("square", BGCOLOR, 1)
+    start = GameObject("square", "red", 1)
+    stop = GameObject("square", "green", 1)
     for i in range(GRIDHEIGHT):
         for j in range(GRIDWIDTH):
             wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             space.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            start.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            stop.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             if(grid[i][j] == "X"):
                 wall.stamp()
                 wallsCordsInScreen.append((wall.xcor(), wall.ycor()))
             if(grid[i][j] == " "):
                 space.stamp()
                 spacesCordsInScreen.append((space.xcor(), space.ycor()))
-    # turtle.done()
+            if(grid[i][j] == "S"):
+                start.stamp()
+                spacesCordsInScreen.append((space.xcor(), space.ycor()))
+            if(grid[i][j] == "P"):
+                stop.stamp()
+                spacesCordsInScreen.append((space.xcor(), space.ycor()))
+    wall.hideturtle()
+    space.hideturtle()
+    start.hideturtle()
+    stop.hideturtle()
 
 
 def getWallsCords():
