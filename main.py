@@ -35,6 +35,61 @@ start_button.color('white')
 start_button.goto(0, 0 - FONT_SIZE/2 - 10)
 start_button.write("START", align='center', font=FONT)
 
+
+# * Character Moment Functions
+
+def moveUp(character):
+    nextXforCharacter = character.xcor()
+    nextYforCharacter = character.ycor() + 25
+    # print(mazeMaker.getWallsCords())
+    # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
+
+    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+        character.setx(nextXforCharacter)
+        character.sety(nextYforCharacter)
+    else:
+        return
+
+
+def moveDown(character):
+    nextXforCharacter = character.xcor()
+    nextYforCharacter = character.ycor() - 25
+    # print(mazeMaker.getWallsCords())
+    # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
+
+    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+        character.setx(nextXforCharacter)
+        character.sety(nextYforCharacter)
+    else:
+        return
+
+
+def moveLeft(character):
+    nextXforCharacter = character.xcor() - 25
+    nextYforCharacter = character.ycor()
+    # print(mazeMaker.getWallsCords())
+    # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
+
+    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+        character.setx(nextXforCharacter)
+        character.sety(nextYforCharacter)
+    else:
+        return
+
+
+def moveRight(character):
+    nextXforCharacter = character.xcor() + 25
+    nextYforCharacter = character.ycor()
+    # print(mazeMaker.getWallsCords())
+    # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
+
+    if((nextXforCharacter, nextYforCharacter) not in mazeMaker.getWallsCords()):
+        character.setx(nextXforCharacter)
+        character.sety(nextYforCharacter)
+    else:
+        return
+
+
 # * Start button clic
 
 
@@ -42,15 +97,18 @@ def onClick(clickedX, clickedY):
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
         screen.clear()
         screen.bgcolor(BGCOLOR)
+        mazeMaker.drawMaze()
         character = Turtle()
         character.shape("square")
-        character.color("green")
+        character.color("white")
+        character.penup()
+        character.goto(-277.5, 302.5 - 25)
+        character.pendown()
         screen.listen()
-        screen.onkeypress(lambda: character.sety(character.ycor() + 10), "w")
-        screen.onkeypress(lambda: character.sety(character.ycor() - 10), "s")
-        screen.onkeypress(lambda: character.setx(character.xcor() - 10), "a")
-        screen.onkeypress(lambda: character.setx(character.xcor() + 10), "d")
-        mazeMaker.drawMaze()
+        screen.onkeypress(lambda: moveUp(character), "w")
+        screen.onkeypress(lambda: moveDown(character), "s")
+        screen.onkeypress(lambda: moveLeft(character), "a")
+        screen.onkeypress(lambda: moveRight(character), "d")
 
 
 onscreenclick(onClick)
