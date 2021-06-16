@@ -1,7 +1,7 @@
 from random import randrange, shuffle
 
-from MazeRunner.GameObject import GameObject
-from MazeRunner.MazeGenerator import MazeGenerator
+from .MazeRunner.GameObject import GameObject
+from .MazeRunner.MazeGenerator import MazeGenerator
 
 # Grid generator
 generator = MazeGenerator()
@@ -57,8 +57,10 @@ def drawMaze():
 def getWallsCords():
     return wallsCordsInScreen
 
+
 def getSpacesCords():
     return spacesCordsInScreen
+
 
 if __name__ == '__main__':
     drawMaze()
