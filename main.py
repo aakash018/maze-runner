@@ -103,7 +103,6 @@ def onClick(clickedX, clickedY):
         character.color("white")
         character.penup()
         character.goto(-277.5, 302.5 - 25)
-        character.pendown()
         screen.onkeypress(lambda: moveUp(character), "w")
         screen.onkeypress(lambda: moveDown(character), "s")
         screen.onkeypress(lambda: moveLeft(character), "a")
