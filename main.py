@@ -43,66 +43,61 @@ winsound.PlaySound("./assets/music/theme.wav",
 
 # * Character Moment Functions
 
+def trapPlayer(char, nextX, nextY):
+    if((nextX, nextY) in mazeMaker.getTrap1Cords()):
+        mazeMaker.setTrap1Cords((nextX, nextY))
+        char.goto(mazeMaker.getStartCords())
+    if((nextX, nextY) in mazeMaker.getTrap2Cords()):
+        mazeMaker.setTrap2Cords((nextX, nextY))
+        l = mazeMaker.getSpacesCords()
+        shuffle(l)
+        char.goto((l[0][0], l[0][1]))
+
+# * Character Moment Functions
+
 def moveUp(character):
     nextXforCharacter = character.xcor()
-    nextYforCharacter = character.ycor() + 25
+    nextYforCharacter = character.ycor() + PLAYERSIZE
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
+        trapPlayer(character, nextXforCharacter, nextYforCharacter)
     else:
         return
 
 
-def moveDown(character, playerType=""):
-    global gameMode
+def moveDown(character):
     nextXforCharacter = character.xcor()
-    nextYforCharacter = character.ycor() - 25
+    nextYforCharacter = character.ycor() - PLAYERSIZE
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
     if((nextXforCharacter, nextYforCharacter) == mazeMaker.getEndCords()):
         screen.clear()
         screen.bgcolor(BGCOLOR)
-        if(gameMode == "single"):
-            winingMessage = Turtle()
-            winingMessage.hideturtle()
-            winingMessage.color("white")
-            winingMessage.write("You escaped the maze...",
-                                align="center", font=FONT)
-            makeButton.button(
-                FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
+        winingMessage = Turtle()
+        winingMessage.hideturtle()
+        winingMessage.color("white")
+        winingMessage.write("You escaped the maze...",
+                            align="center", font=FONT)
+        makeButton.button(FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
+        makeButton.button(FONT_SIZE - 20, "Main Menu", 0, -250, 1.5, 20)
 
-        if(gameMode == "multi"):
-            if(playerType == "player1"):
-                winingMessage = Turtle()
-                winingMessage.hideturtle()
-                winingMessage.color("white")
-                winingMessage.write("Yellow escaped the maze and WON...",
-                                    align="center", font=FONT)
-                makeButton.button(
-                    FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
-            if(playerType == "player2"):
-                winingMessage = Turtle()
-                winingMessage.hideturtle()
-                winingMessage.color("white")
-                winingMessage.write("Purple escaped the maze and WON...",
-                                    align="center", font=FONT)
-                makeButton.button(
-                    FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
         onscreenclick(onRestartClick)
 
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
+        trapPlayer(character, nextXforCharacter, nextYforCharacter)
     else:
         return
 
 
 def moveLeft(character):
-    nextXforCharacter = character.xcor() - 25
+    nextXforCharacter = character.xcor() - PLAYERSIZE
     nextYforCharacter = character.ycor()
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
@@ -110,12 +105,13 @@ def moveLeft(character):
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
+        trapPlayer(character, nextXforCharacter, nextYforCharacter)
     else:
         return
 
 
 def moveRight(character):
-    nextXforCharacter = character.xcor() + 25
+    nextXforCharacter = character.xcor() + PLAYERSIZE
     nextYforCharacter = character.ycor()
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
@@ -123,6 +119,7 @@ def moveRight(character):
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
+        trapPlayer(character, nextXforCharacter, nextYforCharacter)
     else:
         return
 
