@@ -139,7 +139,6 @@ def onClick(clickedX, clickedY):
 
 def onRestartClick(clickedX, clickedY):
     if(clickedX > -200 and clickedX < 205 and clickedY > -166 and clickedY < -134):
-        print("clicked")
         mazeMaker.resetWallsCords()
         mazeMaker.resetSpacesCords()
         startGame()
