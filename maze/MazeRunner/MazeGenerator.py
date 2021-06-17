@@ -45,6 +45,7 @@ class MazeGenerator:
                 if xx == x:
                     row[max(y, yy)][x] = "X "  # randomly
                 if yy == y:
+                    
                     col[y][max(x, xx)] = "  "  # open walls
 
                 walk(xx, yy)
