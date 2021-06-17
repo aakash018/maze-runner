@@ -1,4 +1,5 @@
 import winsound
+from random import shuffle
 from turtle import *
 
 import libs.timer as timer
@@ -8,7 +9,7 @@ import utils.makeButton as makeButton
 # * STYLE VARIABLES
 BGCOLOR = "#0E0F1E"
 BUTTONBG = "#1F3049"
-
+PLAYERSIZE = 25
 
 # * SCREEN SIZE
 WIDTH = 1280
@@ -54,6 +55,7 @@ def trapPlayer(char, nextX, nextY):
         char.goto((l[0][0], l[0][1]))
 
 # * Character Moment Functions
+
 
 def moveUp(character):
     nextXforCharacter = character.xcor()
