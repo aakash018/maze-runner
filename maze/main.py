@@ -28,6 +28,9 @@ endBlockCords = None
 wallsCordsInScreen = []
 spacesCordsInScreen = []
 
+# trap coordinates
+trap1Cords = []
+trap2Cords = []
 
 # Grid generator
 generator = MazeGenerator()
@@ -43,12 +46,20 @@ def drawMaze():
     space = GameObject("square", BGCOLOR, 1)
     start = GameObject("square", "#F9553E", 1)
     stop = GameObject("square", "#43DA6D", 1)
+    # trap debug view
+    trap1 = GameObject("square", "blue", 1)
+    trap2 = GameObject("square", "purple", 1)
+    # trap game mode view
+    # trap1 = GameObject("square", BGCOLOR, 1)
+    # trap2 = GameObject("square", BGCOLOR, 1)
     for i in range(GRIDHEIGHT):
         for j in range(GRIDWIDTH):
             wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             space.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             start.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             stop.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            trap1.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
+            trap2.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
             if(grid[i][j] == "X"):
                 wall.stamp()
                 wallsCordsInScreen.append((wall.xcor(), wall.ycor()))
@@ -63,11 +74,21 @@ def drawMaze():
                 stop.stamp()
                 spacesCordsInScreen.append((space.xcor(), space.ycor()))
                 endBlockCords = (stop.xcor(), stop.ycor())
+            if(grid[i][j] == "T"):
+                trap1.stamp()
+                spacesCordsInScreen.append((space.xcor(), space.ycor()))
+                trap1Cords.append((space.xcor(), space.ycor()))
+            if(grid[i][j] == "U"):
+                trap2.stamp()
+                spacesCordsInScreen.append((space.xcor(), space.ycor()))
+                trap2Cords.append((space.xcor(), space.ycor()))
 
     wall.hideturtle()
     space.hideturtle()
     start.hideturtle()
     stop.hideturtle()
+    trap1.hideturtle()
+    trap2.hideturtle()
 
 
 def resetWallsCords():
@@ -93,6 +114,17 @@ def getStartCords():
 def getEndCords():
     return endBlockCords
 
+def getTrap1Cords():
+    return trap1Cords
+
+def getTrap2Cords():
+    return trap2Cords
+
+def setTrap1Cords(cords):
+    trap1Cords.remove(cords)
+
+def setTrap2Cords(cords):
+    trap2Cords.remove(cords)
 
 if __name__ == '__main__':
     drawMaze()
