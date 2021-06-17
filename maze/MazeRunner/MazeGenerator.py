@@ -57,7 +57,7 @@ class MazeGenerator:
 
         l = list(s)
         l[(self.column*2)+2] = "S"
-        l[(((self.column*2+1) * (self.column*2+1)) - 4)+(self.column*2+2)] = "P"
+        l[(((self.column*2+1) * (self.column*2+1)) - 4)+(self.column*2+2)] = "E"
         print(len(l))
         fin = ""
         fin += ''.join(l)

@@ -3,10 +3,6 @@ from random import randrange, shuffle
 from .MazeRunner.GameObject import GameObject
 from .MazeRunner.MazeGenerator import MazeGenerator
 
-# Grid generator
-generator = MazeGenerator()
-generator.write('Block.txt')
-
 # Global vars
 
 WINWIDTH = 625
@@ -22,26 +18,31 @@ GRIDYORIG = 302.5
 
 SCALE = 25
 
+
+# * Start End Cords
+startCords = None
+endBlockCords = None
+# Read generated grid from MazeGenerator
+
 # * Wall Cordinate
 wallsCordsInScreen = []
 spacesCordsInScreen = []
 
-# Screen stufss
-# screen = turtle.Screen()
-# screen.title(TITLE)
-# screen.setup(WINWIDTH, WINHEIGHT)
 
-# Read generated grid from MazeGenerator
-f = open('Block.txt', 'r')
-grid = f.readlines()
+# Grid generator
+generator = MazeGenerator()
 
 
 def drawMaze():
+    generator.write('Block.txt')
+    f = open('Block.txt', 'r')
+    grid = f.readlines()
+    global startCords, endBlockCords
     # Game Objects
     wall = GameObject("square", BUTTONBG, 1)
     space = GameObject("square", BGCOLOR, 1)
-    start = GameObject("square", "red", 1)
-    stop = GameObject("square", "green", 1)
+    start = GameObject("square", "#F9553E", 1)
+    stop = GameObject("square", "#43DA6D", 1)
     for i in range(GRIDHEIGHT):
         for j in range(GRIDWIDTH):
             wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))
@@ -57,13 +58,24 @@ def drawMaze():
             if(grid[i][j] == "S"):
                 start.stamp()
                 spacesCordsInScreen.append((space.xcor(), space.ycor()))
-            if(grid[i][j] == "P"):
+                startCords = (start.xcor(), start.ycor())
+            if(grid[i][j] == "E"):
                 stop.stamp()
                 spacesCordsInScreen.append((space.xcor(), space.ycor()))
+                endBlockCords = (stop.xcor(), stop.ycor())
+
     wall.hideturtle()
     space.hideturtle()
     start.hideturtle()
     stop.hideturtle()
+
+
+def resetWallsCords():
+    wallsCordsInScreen.clear()
+
+
+def resetSpacesCords():
+    spacesCordsInScreen.clear()
 
 
 def getWallsCords():
@@ -72,6 +84,14 @@ def getWallsCords():
 
 def getSpacesCords():
     return spacesCordsInScreen
+
+
+def getStartCords():
+    return startCords
+
+
+def getEndCords():
+    return endBlockCords
 
 
 if __name__ == '__main__':
