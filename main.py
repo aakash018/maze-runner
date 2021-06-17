@@ -1,4 +1,7 @@
-import winsound
+try:
+    import winsound
+except ModuleNotFoundError:
+    import os
 from turtle import *
 
 import libs.timer as timer
@@ -37,8 +40,11 @@ makeButton.button(FONT_SIZE - 20, "About", 0, -200)
 
 
 # * Sound
-winsound.PlaySound("./assets/music/theme.wav",
+try:
+    winsound.PlaySound("./assets/music/theme.wav",
                    winsound.SND_LOOP + winsound.SND_ASYNC)
+except:
+    os.system("aplay ./assets/music/theme.wav &")
 
 
 # * Character Moment Functions
