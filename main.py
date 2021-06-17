@@ -1,6 +1,7 @@
 import winsound
 from turtle import *
 
+import libs.timer as timer
 import maze.main as mazeMaker
 import utils.makeButton as makeButton
 
@@ -20,6 +21,8 @@ screen = Screen()
 screen.setup(WIDTH, HEIGHT)
 screen.bgcolor(BGCOLOR)
 screen.bgpic("./assets/images/bg3.png")
+screen.tracer(0)
+
 
 # * WELCOME SCREEN START BUTTON
 FONT_SIZE = 36
