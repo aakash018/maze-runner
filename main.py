@@ -1,3 +1,4 @@
+import winsound
 from turtle import *
 
 import maze.main as mazeMaker
@@ -9,8 +10,8 @@ BUTTONBG = "#1F3049"
 
 
 # * SCREEN SIZE
-WIDTH = 900
-HEIGHT = 600
+WIDTH = 1280
+HEIGHT = 720
 
 gameMode = ""
 
@@ -18,18 +19,23 @@ gameMode = ""
 screen = Screen()
 screen.setup(WIDTH, HEIGHT)
 screen.bgcolor(BGCOLOR)
-screen.bgpic("./assets/images/bg.png")
+screen.bgpic("./assets/images/bg3.png")
 
 # * WELCOME SCREEN START BUTTON
 FONT_SIZE = 36
 FONT = ('Courier', FONT_SIZE, 'bold')
 
-makeButton.button(FONT_SIZE, "START", 0, 0, 5, 20)
+makeButton.button(FONT_SIZE - 10, "Single Player", 0, 0, 4, 20)
 
-makeButton.button(FONT_SIZE - 20, "Multiplayer", 0, -100)
+makeButton.button(FONT_SIZE - 10, "Multiplayer", 0, -100, 4, 20)
 
 # * WELCOM SCREEN ABOUT US BUTTON
 makeButton.button(FONT_SIZE - 20, "About", 0, -200)
+
+
+# * Sound
+winsound.PlaySound("./assets/music/theme.wav",
+                   winsound.SND_LOOP + winsound.SND_ASYNC)
 
 
 # * Character Moment Functions
@@ -119,8 +125,9 @@ def moveRight(character):
 
 
 # * Start button clic
-def startGame():
+def startSingleGame():
     screen.clear()
+    # winsound.PlaySound(None, winsound.SND_PURGE)
     screen.bgcolor(BGCOLOR)
     mazeMaker.drawMaze()
     character = Turtle()
@@ -136,8 +143,9 @@ def startGame():
     screen.listen()
 
 
-def multi():
+def startMultiGame():
     screen.clear()
+    # winsound.PlaySound(None, winsound.SND_PURGE)
     screen.bgcolor(BGCOLOR)
     mazeMaker.drawMaze()
 
@@ -187,13 +195,13 @@ def onClick(clickedX, clickedY):
         # name2.color(COLOR)
         # name2.write("Manish", align='center', font=FONT)
         gameMode = "multi"
-        multi()
+        startMultiGame()
 
     print(clickedX, clickedY)
     # ? IF START BUTTON IS PRESSES
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
         gameMode = "single"
-        startGame()
+        startSingleGame()
 
 
 def onRestartClick(clickedX, clickedY):
@@ -204,11 +212,11 @@ def onRestartClick(clickedX, clickedY):
         if(gameMode == "single"):
             mazeMaker.resetWallsCords()
             mazeMaker.resetSpacesCords()
-            startGame()
+            startSingleGame()
         if(gameMode == "multi"):
             mazeMaker.resetWallsCords()
             mazeMaker.resetSpacesCords()
-            multi()
+            startMultiGame()
 
 
 onscreenclick(onClick)
