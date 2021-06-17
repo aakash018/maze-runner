@@ -69,31 +69,50 @@ def moveUp(character):
         return
 
 
-def moveDown(character):
+def moveDown(character, playerType=""):
+    global gameMode
     nextXforCharacter = character.xcor()
-    nextYforCharacter = character.ycor() - PLAYERSIZE
+    nextYforCharacter = character.ycor() - 25
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
     if((nextXforCharacter, nextYforCharacter) == mazeMaker.getEndCords()):
         screen.clear()
         screen.bgcolor(BGCOLOR)
-        winingMessage = Turtle()
-        winingMessage.hideturtle()
-        winingMessage.color("white")
-        winingMessage.write("You escaped the maze...",
-                            align="center", font=FONT)
-        makeButton.button(FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
-        makeButton.button(FONT_SIZE - 20, "Main Menu", 0, -250, 1.5, 20)
+        if(gameMode == "single"):
+            winingMessage = Turtle()
+            winingMessage.hideturtle()
+            winingMessage.color("white")
+            winingMessage.write("You escaped the maze...",
+                                align="center", font=FONT)
+            makeButton.button(
+                FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
 
+        if(gameMode == "multi"):
+            if(playerType == "player1"):
+                winingMessage = Turtle()
+                winingMessage.hideturtle()
+                winingMessage.color("white")
+                winingMessage.write("Yellow escaped the maze and WON...",
+                                    align="center", font=FONT)
+                makeButton.button(
+                    FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
+            if(playerType == "player2"):
+                winingMessage = Turtle()
+                winingMessage.hideturtle()
+                winingMessage.color("white")
+                winingMessage.write("Purple escaped the maze and WON...",
+                                    align="center", font=FONT)
+                makeButton.button(
+                    FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
         onscreenclick(onRestartClick)
 
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
-        trapPlayer(character, nextXforCharacter, nextYforCharacter)
     else:
         return
+
 
 
 def moveLeft(character):
