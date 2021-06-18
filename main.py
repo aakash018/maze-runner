@@ -34,9 +34,9 @@ screen = Screen()
 screen.title("Maze Runner")
 screen.setup(width=1.0, height=1.0, startx=None, starty=None)
 screen.tracer(0)
-# canvas = screen.getcanvas()
-# root = canvas.winfo_toplevel()
-# root.overrideredirect(1)
+canvas = screen.getcanvas()
+root = canvas.winfo_toplevel()
+root.overrideredirect(1)
 
 
 FONT_SIZE = 36
@@ -62,6 +62,7 @@ def homeScreen():
     # * WELCOM SCREEN ABOUT US BUTTON
     makeButton.button(FONT_SIZE - 20, "Help", 0, -200)
     makeButton.button(FONT_SIZE - 20, "About", 0, -250)
+    makeButton.button(FONT_SIZE - 20, "Quit", 0, -300)
 
 
 homeScreen()
@@ -283,6 +284,10 @@ def onClick(clickedX, clickedY):
         aboutPage()
 
         onscreenclick(onHelpClick)
+
+    # ? On Quit
+    if(clickedX > -100 and clickedX < 100 and clickedY > -316 and clickedY < -285):
+        screen.bye()
 
 
 def onGameEndScreenClick(clickedX, clickedY):
