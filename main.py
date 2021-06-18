@@ -154,6 +154,8 @@ def moveDown(character, playerType=""):
         timerObj.clear()
         savedTimer = timerCounter
         timerCounter = 0
+        conversion = datetime.timedelta(seconds=savedTimer)
+        converted_time = str(conversion)
         screen.clear()
         screen.bgcolor(BGCOLOR)
         playsound("./assets/music/end_laugh.mp3", False)
@@ -165,7 +167,7 @@ def moveDown(character, playerType=""):
                                 align="center", font=FONT)
             winingMessage.pu()
             winingMessage.goto(0, -80)
-            winingMessage.write(f'Time taken is {savedTimer} seconds',
+            winingMessage.write(f'Time taken is {converted_time}',
                                 align="center", font=('Courier', FONT_SIZE - 10, 'bold'))
             makeButton.button(
                 FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
