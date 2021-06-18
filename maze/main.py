@@ -47,12 +47,12 @@ def drawMaze():
     start = GameObject("square", "#F9553E", 1)
     stop = GameObject("square", "#43DA6D", 1)
     # trap debug view
-    trap1 = GameObject("square", "blue", 1)
-    trap2 = GameObject("square", "purple", 1)
+    # trap1 = GameObject("square", "blue", 1)
+    # trap2 = GameObject("square", "purple", 1)
 
     # trap game mode view
-    # trap1 = GameObject("square", BGCOLOR, 1)
-    # trap2 = GameObject("square", BGCOLOR, 1)
+    trap1 = GameObject("square", BGCOLOR, 1)
+    trap2 = GameObject("square", BGCOLOR, 1)
     for i in range(GRIDHEIGHT):
         for j in range(GRIDWIDTH):
             wall.goto(GRIDXORIG + (j*SCALE), GRIDYORIG - (i*SCALE))

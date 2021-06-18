@@ -1,5 +1,4 @@
 import turtle
-from os import makedirs
 
 import utils.makeButton as makeButton
 

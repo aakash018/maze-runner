@@ -1,6 +1,8 @@
 import winsound
 from random import shuffle
 
+from about import aboutPage
+
 try:
     import winsound
 except ModuleNotFoundError:
@@ -59,6 +61,7 @@ def homeScreen():
 
     # * WELCOM SCREEN ABOUT US BUTTON
     makeButton.button(FONT_SIZE - 20, "Help", 0, -200)
+    makeButton.button(FONT_SIZE - 20, "About", 0, -250)
 
 
 homeScreen()
@@ -263,12 +266,21 @@ def onClick(clickedX, clickedY):
         gameMode = "single"
         startSingleGame()
 
-    # ? IF ABOUT BUTTON IS PRESSED
+    # ? IF Help BUTTON IS PRESSED
     if(clickedX > -100 and clickedX < 100 and clickedY > -218 and clickedY < -184):
         screen.clear()
         screen.tracer(0)
         screen.bgcolor(BGCOLOR)
         help.helpPage()
+
+        onscreenclick(onHelpClick)
+
+    # ? If ABOUT BUTTON IS PRESSED
+    if(clickedX > -100 and clickedX < 100 and clickedY > -267 and clickedY < -235):
+        screen.clear()
+        screen.tracer(0)
+        screen.bgcolor(BGCOLOR)
+        aboutPage()
 
         onscreenclick(onHelpClick)
 
