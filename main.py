@@ -1,6 +1,9 @@
 import winsound
 from random import shuffle
+from sys import flags
 from turtle import *
+
+from playsound import playsound
 
 import libs.timer as timer
 import maze.main as mazeMaker
@@ -20,39 +23,48 @@ gameMode = ""
 # * SCREN INIT
 screen = Screen()
 screen.setup(WIDTH, HEIGHT)
-screen.bgcolor(BGCOLOR)
-screen.bgpic("./assets/images/bg3.png")
 screen.tracer(0)
 
-
-# * WELCOME SCREEN START BUTTON
 FONT_SIZE = 36
 FONT = ('Courier', FONT_SIZE, 'bold')
 
-makeButton.button(FONT_SIZE - 10, "Single Player", 0, 0, 4, 20)
 
-makeButton.button(FONT_SIZE - 10, "Multiplayer", 0, -100, 4, 20)
+def homeScreen():
+    # * Stop Previous
+    winsound.PlaySound(None, winsound.SND_PURGE)
 
-# * WELCOM SCREEN ABOUT US BUTTON
-makeButton.button(FONT_SIZE - 20, "About", 0, -200)
+    # * Sound
+    winsound.PlaySound("./assets/music/theme.wav",
+                       winsound.SND_LOOP + winsound.SND_ASYNC)
+
+    screen.bgcolor(BGCOLOR)
+    screen.bgpic("./assets/images/bg3.png")
+    # * WELCOME SCREEN START BUTTON
+
+    makeButton.button(FONT_SIZE - 10, "Single Player", 0, 0, 4, 20)
+
+    makeButton.button(FONT_SIZE - 10, "Multiplayer", 0, -100, 4, 20)
+
+    # * WELCOM SCREEN ABOUT US BUTTON
+    makeButton.button(FONT_SIZE - 20, "About", 0, -200)
 
 
-# * Sound
-winsound.PlaySound("./assets/music/theme.wav",
-                   winsound.SND_LOOP + winsound.SND_ASYNC)
+homeScreen()
 
 
 # * Character Moment Functions
 
 def trapPlayer(char, nextX, nextY):
     if((nextX, nextY) in mazeMaker.getTrap1Cords()):
+        playsound("./assets/music/blue_trap.wav", False)
         mazeMaker.setTrap1Cords((nextX, nextY))
         char.goto(mazeMaker.getStartCords())
     if((nextX, nextY) in mazeMaker.getTrap2Cords()):
+        playsound("./assets/music/pink_trap.wav", False)
         mazeMaker.setTrap2Cords((nextX, nextY))
-        l = mazeMaker.getSpacesCords()
-        shuffle(l)
-        char.goto((l[0][0], l[0][1]))
+        spaceCords = mazeMaker.getSpacesCords()
+        shuffle(spaceCords)
+        char.goto((spaceCords[0][0], spaceCords[0][1]))
 
 # * Character Moment Functions
 
@@ -78,9 +90,12 @@ def moveDown(character, playerType=""):
     # print(mazeMaker.getWallsCords())
     # print((nextXforCharacter + 0.5, nextYforCharacter + 0.5))
 
+    # ? Game End Logic
+
     if((nextXforCharacter, nextYforCharacter) == mazeMaker.getEndCords()):
         screen.clear()
         screen.bgcolor(BGCOLOR)
+        playsound("./assets/music/end_laugh.mp3", False)
         if(gameMode == "single"):
             winingMessage = Turtle()
             winingMessage.hideturtle()
@@ -89,6 +104,8 @@ def moveDown(character, playerType=""):
                                 align="center", font=FONT)
             makeButton.button(
                 FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
+
+            makeButton.button(FONT_SIZE - 20, "Home", 0, -200, 1.5, 20)
 
         if(gameMode == "multi"):
             if(playerType == "player1"):
@@ -99,6 +116,8 @@ def moveDown(character, playerType=""):
                                     align="center", font=FONT)
                 makeButton.button(
                     FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
+                makeButton.button(FONT_SIZE - 20, "Home", 0, -200, 1.5, 20)
+
             if(playerType == "player2"):
                 winingMessage = Turtle()
                 winingMessage.hideturtle()
@@ -107,14 +126,15 @@ def moveDown(character, playerType=""):
                                     align="center", font=FONT)
                 makeButton.button(
                     FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
-        onscreenclick(onRestartClick)
+                makeButton.button(FONT_SIZE - 20, "Home", 0, -200, 1.5, 20)
+
+        onscreenclick(onGameEndScreenClick)
 
     if((nextXforCharacter, nextYforCharacter) in mazeMaker.getSpacesCords()):
         character.setx(nextXforCharacter)
         character.sety(nextYforCharacter)
     else:
         return
-
 
 
 def moveLeft(character):
@@ -148,7 +168,9 @@ def moveRight(character):
 # * Start button clic
 def startSingleGame():
     screen.clear()
-    # winsound.PlaySound(None, winsound.SND_PURGE)
+    winsound.PlaySound(None, winsound.SND_PURGE)
+    winsound.PlaySound('./assets/music/in_game_music.wav',
+                       winsound.SND_LOOP + winsound.SND_ASYNC)
     screen.bgcolor(BGCOLOR)
     mazeMaker.drawMaze()
     character = Turtle()
@@ -166,7 +188,9 @@ def startSingleGame():
 
 def startMultiGame():
     screen.clear()
-    # winsound.PlaySound(None, winsound.SND_PURGE)
+    winsound.PlaySound(None, winsound.SND_PURGE)
+    winsound.PlaySound('./assets/music/in_game_music.wav',
+                       winsound.SND_LOOP + winsound.SND_ASYNC)
     screen.bgcolor(BGCOLOR)
     mazeMaker.drawMaze()
 
@@ -198,23 +222,8 @@ def startMultiGame():
 def onClick(clickedX, clickedY):
     global gameMode
 
-    FONT = ('Courier', 20, 'bold')
-    COLOR = "white"
-
     # ? IF ABOUT ME IS PRESSES
-    if(clickedX > -100 and clickedX < 101 and clickedY > -116 and clickedY < -85):
-        # screen.clear()
-        # screen.bgcolor(BGCOLOR)
-
-        # name1 = Turtle()
-        # name1.hideturtle()
-        # name1.color(COLOR)
-        # name1.write("Aakash Khanal", align='center', font=FONT)
-
-        # name2 = Turtle()
-        # name2.hideturtle()
-        # name2.color(COLOR)
-        # name2.write("Manish", align='center', font=FONT)
+    if(clickedX > -200 and clickedX < 202 and clickedY > -144 and clickedY < -60):
         gameMode = "multi"
         startMultiGame()
 
@@ -225,10 +234,15 @@ def onClick(clickedX, clickedY):
         startSingleGame()
 
 
-def onRestartClick(clickedX, clickedY):
-    print("clickedout")
+def onGameEndScreenClick(clickedX, clickedY):
+    print(clickedX, clickedY)
+
+    # * HOME
+    if(clickedX > -200 and clickedX < 205 and clickedY > -280 and clickedY < -180):
+        screen.clear()
+        homeScreen()
+
     if(clickedX > -200 and clickedX < 205 and clickedY > -166 and clickedY < -134):
-        print("clickediin")
         print(gameMode)
         if(gameMode == "single"):
             mazeMaker.resetWallsCords()
