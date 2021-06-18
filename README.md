@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/aakash018/maze-runner">
-    <img src="assets/images/logo.svg" alt="Logo" width="80" height="80">
+    <img src="assets/images/logo.png" alt="Logo" width="200" height="100">
   </a>
 
   <h3 align="center">MazeRunner</h3>
