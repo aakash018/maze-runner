@@ -1,4 +1,4 @@
-from random import randrange, shuffle, randint
+from random import randint, randrange, shuffle
 
 
 class MazeGenerator:
@@ -46,9 +46,9 @@ class MazeGenerator:
                     row[max(y, yy)][x] = "X "  # randomly
                 if yy == y:
                     r_trap = randint(1, 17)
-                    if(r_trap == 1):
+                    if(r_trap == 4):
                         col[y][max(x, xx)] = "T "  # trap1
-                    elif (r_trap == 2):
+                    elif (r_trap < 3):
                         col[y][max(x, xx)] = "U "  # trap2
                     else:
                         col[y][max(x, xx)] = "  "  # open walls

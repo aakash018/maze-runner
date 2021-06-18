@@ -10,6 +10,7 @@ from turtle import *
 
 from playsound import playsound
 
+import help
 import libs.timer as timer
 import maze.main as mazeMaker
 import utils.makeButton as makeButton
@@ -57,7 +58,7 @@ def homeScreen():
     makeButton.button(FONT_SIZE - 10, "Multiplayer", 0, -100, 4, 20)
 
     # * WELCOM SCREEN ABOUT US BUTTON
-    makeButton.button(FONT_SIZE - 20, "About", 0, -200)
+    makeButton.button(FONT_SIZE - 20, "Help", 0, -200)
 
 
 homeScreen()
@@ -240,17 +241,25 @@ def startMultiGame():
 
 def onClick(clickedX, clickedY):
     global gameMode
-
-    # ? IF ABOUT ME IS PRESSES
+    print(clickedX, clickedY)
+    # ? IF MULTI PLAYER ME IS PRESSES
     if(clickedX > -200 and clickedX < 202 and clickedY > -144 and clickedY < -60):
         gameMode = "multi"
         startMultiGame()
 
-    print(clickedX, clickedY)
-    # ? IF START BUTTON IS PRESSES
+    # ? IF SInGLE BUTTON IS PRESSES
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
         gameMode = "single"
         startSingleGame()
+
+    # ? IF ABOUT BUTTON IS PRESSED
+    if(clickedX > -100 and clickedX < 100 and clickedY > -218 and clickedY < -184):
+        screen.clear()
+        screen.tracer(0)
+        screen.bgcolor(BGCOLOR)
+        help.helpPage()
+
+        onscreenclick(onHelpClick)
 
 
 def onGameEndScreenClick(clickedX, clickedY):
@@ -273,6 +282,15 @@ def onGameEndScreenClick(clickedX, clickedY):
             mazeMaker.resetSpacesCords()
             mazeMaker.resetTrapCords()
             startMultiGame()
+
+
+def onHelpClick(clickedX, clickedY):
+    print(clickedX, clickedY)
+    if(clickedX > 400 and clickedX < 602 and clickedY > 315 and clickedY < 350):
+        screen.clear()
+        screen.tracer(0)
+        homeScreen()
+        onscreenclick(onClick)
 
 
 onscreenclick(onClick)
