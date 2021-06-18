@@ -12,7 +12,7 @@
   </p>
 </p>
 
-# General concept
+## General concept
 
 The algorithm used in this game is `Recursive Backtracker Maze Generation`.
 
@@ -23,9 +23,16 @@ It's implementation goes like:
     if that neighbor hasn't been visited, we remove the wall between this cell and that neighbor, 
     and then recurse with that neighbor as the current cell.
 
-# Authors
+## Authors
 
 1) Aakash Khanal
 2) Bibek Chand
 3) Bigyan Dahal
 4) Manish Gyawali
+
+## Special Thanks
+
+This project would have been incomplete without the contents from the sources below. Note, however we own no rights whatsover, and is only used for personal project purposes.
+
+- [MazeRunner Theme Song](https://www.youtube.com/watch?v=dI25KCY9-Gg)
+- [Ingame Song](https://www.youtube.com/watch?v=AdpxWJ9ZvP0)
