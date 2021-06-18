@@ -36,3 +36,6 @@ def aboutPage():
     write(creator, "Bibek Chand", -600, -80, FONT_SIZE)
     write(creator, "Bigyan Dahal", -600, -120, FONT_SIZE)
     write(creator, "Manish Gyawali", -600, -160, FONT_SIZE)
+
+    write(creator, "Code at: https://github.com/aakash018/maze-runner", -
+          600, -250, FONT_SIZE)
