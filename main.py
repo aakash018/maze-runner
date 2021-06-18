@@ -191,6 +191,11 @@ def startSingleGame():
     winsound.PlaySound('./assets/music/in_game_music.wav',
                        winsound.SND_LOOP + winsound.SND_ASYNC)
     screen.bgcolor(BGCOLOR)
+    makeButton.button(20, "EXIT", 500, 330)
+    onscreenclick(onHelpClick)
+    mazeMaker.resetTrapCords()
+    mazeMaker.resetSpacesCords()
+    mazeMaker.resetWallsCords()
     mazeMaker.drawMaze()
     character = Turtle()
     character.shape("square")
@@ -208,10 +213,16 @@ def startSingleGame():
 def startMultiGame():
     screen.clear()
     screen.tracer(0)
+
     winsound.PlaySound(None, winsound.SND_PURGE)
     winsound.PlaySound('./assets/music/in_game_music.wav',
                        winsound.SND_LOOP + winsound.SND_ASYNC)
     screen.bgcolor(BGCOLOR)
+    makeButton.button(20, "EXIT", 500, 330)
+    onscreenclick(onHelpClick)
+    mazeMaker.resetTrapCords()
+    mazeMaker.resetSpacesCords()
+    mazeMaker.resetWallsCords()
     mazeMaker.drawMaze()
 
     character1 = Turtle()
@@ -273,14 +284,14 @@ def onGameEndScreenClick(clickedX, clickedY):
     if(clickedX > -200 and clickedX < 205 and clickedY > -166 and clickedY < -134):
         print(gameMode)
         if(gameMode == "single"):
-            mazeMaker.resetWallsCords()
-            mazeMaker.resetSpacesCords()
-            mazeMaker.resetTrapCords()
+            # mazeMaker.resetWallsCords()
+            # mazeMaker.resetSpacesCords()
+            # mazeMaker.resetTrapCords()
             startSingleGame()
         if(gameMode == "multi"):
-            mazeMaker.resetWallsCords()
-            mazeMaker.resetSpacesCords()
-            mazeMaker.resetTrapCords()
+            # mazeMaker.resetWallsCords()
+            # mazeMaker.resetSpacesCords()
+            # mazeMaker.resetTrapCords()
             startMultiGame()
 
 
