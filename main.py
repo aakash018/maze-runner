@@ -1,6 +1,12 @@
 import winsound
 from random import shuffle
 from sys import flags
+
+try:
+    import winsound
+except ModuleNotFoundError:
+    import os
+
 from turtle import *
 
 from playsound import playsound
@@ -50,6 +56,12 @@ def homeScreen():
 
 
 homeScreen()
+# * Sound
+try:
+    winsound.PlaySound("./assets/music/theme.wav",
+                       winsound.SND_LOOP + winsound.SND_ASYNC)
+except:
+    os.system("aplay ./assets/music/theme.wav &")
 
 
 # * Character Moment Functions
