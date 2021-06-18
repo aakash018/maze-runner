@@ -49,6 +49,7 @@ def drawMaze():
     # trap debug view
     trap1 = GameObject("square", "blue", 1)
     trap2 = GameObject("square", "purple", 1)
+
     # trap game mode view
     # trap1 = GameObject("square", BGCOLOR, 1)
     # trap2 = GameObject("square", BGCOLOR, 1)
@@ -91,6 +92,11 @@ def drawMaze():
     trap2.hideturtle()
 
 
+def resetTrapCords():
+    trap1Cords.clear()
+    trap2Cords.clear()
+
+
 def resetWallsCords():
     wallsCordsInScreen.clear()
 
@@ -114,17 +120,22 @@ def getStartCords():
 def getEndCords():
     return endBlockCords
 
+
 def getTrap1Cords():
     return trap1Cords
+
 
 def getTrap2Cords():
     return trap2Cords
 
+
 def setTrap1Cords(cords):
     trap1Cords.remove(cords)
 
+
 def setTrap2Cords(cords):
     trap2Cords.remove(cords)
+
 
 if __name__ == '__main__':
     drawMaze()

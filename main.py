@@ -27,8 +27,14 @@ gameMode = ""
 
 # * SCREN INIT
 screen = Screen()
-screen.setup(WIDTH, HEIGHT)
+# screen.setup(WIDTH, HEIGHT)
+screen.title("Maze Runner")
+screen.setup(width=1.0, height=1.0, startx=None, starty=None)
 screen.tracer(0)
+# canvas = screen.getcanvas()
+# root = canvas.winfo_toplevel()
+# root.overrideredirect(1)
+
 
 FONT_SIZE = 36
 FONT = ('Courier', FONT_SIZE, 'bold')
@@ -179,6 +185,7 @@ def moveRight(character):
 # * Start button clic
 def startSingleGame():
     screen.clear()
+    screen.tracer(0)
     winsound.PlaySound(None, winsound.SND_PURGE)
     winsound.PlaySound('./assets/music/in_game_music.wav',
                        winsound.SND_LOOP + winsound.SND_ASYNC)
@@ -199,6 +206,7 @@ def startSingleGame():
 
 def startMultiGame():
     screen.clear()
+    screen.tracer(0)
     winsound.PlaySound(None, winsound.SND_PURGE)
     winsound.PlaySound('./assets/music/in_game_music.wav',
                        winsound.SND_LOOP + winsound.SND_ASYNC)
@@ -246,11 +254,10 @@ def onClick(clickedX, clickedY):
 
 
 def onGameEndScreenClick(clickedX, clickedY):
-    print(clickedX, clickedY)
-
     # * HOME
     if(clickedX > -200 and clickedX < 205 and clickedY > -280 and clickedY < -180):
         screen.clear()
+        screen.tracer(0)
         homeScreen()
         onscreenclick(onClick)
 
@@ -259,10 +266,12 @@ def onGameEndScreenClick(clickedX, clickedY):
         if(gameMode == "single"):
             mazeMaker.resetWallsCords()
             mazeMaker.resetSpacesCords()
+            mazeMaker.resetTrapCords()
             startSingleGame()
         if(gameMode == "multi"):
             mazeMaker.resetWallsCords()
             mazeMaker.resetSpacesCords()
+            mazeMaker.resetTrapCords()
             startMultiGame()
 
 
