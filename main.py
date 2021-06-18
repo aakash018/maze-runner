@@ -1,3 +1,5 @@
+import datetime
+import threading
 import winsound
 from random import shuffle
 
@@ -41,6 +43,29 @@ root.overrideredirect(1)
 
 FONT_SIZE = 36
 FONT = ('Courier', FONT_SIZE, 'bold')
+
+# timer
+timerCounter = 0
+timerObj = Turtle()
+timerObj.pu()
+timerObj.color("black")
+timerObj.goto(500, 270)
+timerObj.color("white")
+timerObj.hideturtle()
+
+timerRunning = True
+
+
+def timer():
+    def f():
+        global timerCounter
+        if timerRunning:
+            timerObj.clear()
+            timerObj.write("Timer : " + str(datetime.timedelta(seconds=timerCounter)),
+                           align="center", font=('Courier', 20, 'bold'))
+            timerCounter += 1
+            screen.ontimer(f, 1000)
+    f()
 
 
 def homeScreen():
@@ -88,6 +113,15 @@ def trapPlayer(char, nextX, nextY):
         shuffle(spaceCords)
         char.goto((spaceCords[0][0], spaceCords[0][1]))
 
+
+def set_interval(func, sec):
+    def func_wrap():
+        set_interval(func, sec)
+        func()
+    t = threading.Timer(sec, func_wrap)
+    t.start()
+    return t
+
 # * Character Moment Functions
 
 
@@ -106,7 +140,7 @@ def moveUp(character):
 
 
 def moveDown(character, playerType=""):
-    global gameMode
+    global gameMode, timerRunning, timerCounter
     nextXforCharacter = character.xcor()
     nextYforCharacter = character.ycor() - 25
     # print(mazeMaker.getWallsCords())
@@ -115,6 +149,11 @@ def moveDown(character, playerType=""):
     # ? Game End Logic
 
     if((nextXforCharacter, nextYforCharacter) == mazeMaker.getEndCords()):
+        global timerCounter
+        timerRunning = False
+        timerObj.clear()
+        savedTimer = timerCounter
+        timerCounter = 0
         screen.clear()
         screen.bgcolor(BGCOLOR)
         playsound("./assets/music/end_laugh.mp3", False)
@@ -124,6 +163,10 @@ def moveDown(character, playerType=""):
             winingMessage.color("white")
             winingMessage.write("You escaped the maze...",
                                 align="center", font=FONT)
+            winingMessage.pu()
+            winingMessage.goto(0, -80)
+            winingMessage.write(f'Time taken is {savedTimer} seconds',
+                                align="center", font=('Courier', FONT_SIZE - 10, 'bold'))
             makeButton.button(
                 FONT_SIZE - 20, "RESTART NEW MAZE", 0, -150, 1.5, 20)
 
@@ -186,9 +229,11 @@ def moveRight(character):
     else:
         return
 
-
 # * Start button clic
+
+
 def startSingleGame():
+    global timerCounter
     screen.clear()
     screen.tracer(0)
     winsound.PlaySound(None, winsound.SND_PURGE)
@@ -207,6 +252,11 @@ def startSingleGame():
     character.penup()
     # character.goto(-277.5, 302.5 - 25)
     character.goto(mazeMaker.getStartCords())
+
+    # timer
+    timerRunning = True
+    timer()
+
     screen.onkeypress(lambda: moveUp(character), "w")
     screen.onkeypress(lambda: moveDown(character), "s")
     screen.onkeypress(lambda: moveLeft(character), "a")
@@ -255,7 +305,7 @@ def startMultiGame():
 
 
 def onClick(clickedX, clickedY):
-    global gameMode
+    global gameMode, timerRunning, timerCounter
     print(clickedX, clickedY)
     # ? IF MULTI PLAYER ME IS PRESSES
     if(clickedX > -200 and clickedX < 202 and clickedY > -144 and clickedY < -60):
@@ -265,6 +315,8 @@ def onClick(clickedX, clickedY):
     # ? IF SInGLE BUTTON IS PRESSES
     if(clickedX > -200 and clickedX < 200 and clickedY > -50 and clickedY < 50):
         gameMode = "single"
+        timerRunning = True
+        a = 0
         startSingleGame()
 
     # ? IF Help BUTTON IS PRESSED
@@ -291,7 +343,11 @@ def onClick(clickedX, clickedY):
 
 
 def onGameEndScreenClick(clickedX, clickedY):
+    global timerRunning, timerCounter
     # * HOME
+    timerRunning = False
+    timerObj.clear()
+    timerCounter = 0
     if(clickedX > -200 and clickedX < 205 and clickedY > -280 and clickedY < -180):
         screen.clear()
         screen.tracer(0)
@@ -304,6 +360,7 @@ def onGameEndScreenClick(clickedX, clickedY):
             # mazeMaker.resetWallsCords()
             # mazeMaker.resetSpacesCords()
             # mazeMaker.resetTrapCords()
+            timerRunning = True
             startSingleGame()
         if(gameMode == "multi"):
             # mazeMaker.resetWallsCords()
@@ -313,8 +370,12 @@ def onGameEndScreenClick(clickedX, clickedY):
 
 
 def onHelpClick(clickedX, clickedY):
+    global timerRunning, timerCounter
     print(clickedX, clickedY)
     if(clickedX > 400 and clickedX < 602 and clickedY > 315 and clickedY < 350):
+        timerRunning = False
+        timerObj.clear()
+        timerCounter = 0
         screen.clear()
         screen.tracer(0)
         homeScreen()

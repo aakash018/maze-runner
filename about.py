@@ -19,7 +19,7 @@ def aboutPage():
     makeButton.button(20, "BACK", 550, 330)
 
     lore = turtle.Turtle()
-    write(lore, "This is a simple game, based a little on movie the “MAZE RUNNER”,", -600, 300)
+    write(lore, "This is a simple game, based a little on the movie “MAZE RUNNER”,", -600, 300)
     write(lore, "created for ARC PythonBytes 2021: Fun with Animation competition", -600, 270)
 
     maze = turtle.Turtle()
