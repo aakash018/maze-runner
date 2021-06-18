@@ -1,6 +1,5 @@
 import winsound
 from random import shuffle
-from sys import flags
 
 try:
     import winsound
@@ -253,6 +252,7 @@ def onGameEndScreenClick(clickedX, clickedY):
     if(clickedX > -200 and clickedX < 205 and clickedY > -280 and clickedY < -180):
         screen.clear()
         homeScreen()
+        onscreenclick(onClick)
 
     if(clickedX > -200 and clickedX < 205 and clickedY > -166 and clickedY < -134):
         print(gameMode)
